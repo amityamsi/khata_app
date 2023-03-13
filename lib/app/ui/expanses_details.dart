@@ -15,6 +15,12 @@ class ExpansesDetailScreen extends StatelessWidget {
         ],
       ),
       body: Column(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // addNewExpanse(context, width);
+        },
+        child: Icon(Icons.add),
+      ),
     ));
   }
 }
