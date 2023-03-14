@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:khata_app/app/constants/colors.dart';
+import 'package:khata_app/app/provider/theme_provider.dart';
 import 'package:khata_app/app/widgets/custom_list_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,11 +28,27 @@ class HomeScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: Container(
                 child: Padding(
-                  padding: EdgeInsets.only(left: width * .1),
+                  padding: EdgeInsets.only(left: width * .01),
                   child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.cloud_upload),
+                            Text("Change Theme"),
+                            Switch(
+                                value:
+                                    Provider.of<ThemeProvider>(context).isDark,
+                                onChanged: (value) {
+                                  Provider.of<ThemeProvider>(context,
+                                          listen: false)
+                                      .changeTheme();
+                                })
+                          ],
+                        ),
+                        Divider(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

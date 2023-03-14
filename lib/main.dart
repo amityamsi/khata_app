@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:khata_app/app/ui/expanses_details.dart';
+import 'package:khata_app/app/provider/theme_provider.dart';
+import 'package:khata_app/app/theme/themes.dart';
 import 'package:khata_app/app/ui/home_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Consumer(
+        builder:
+            (BuildContext ctx, ThemeProvider themeProvider, Widget? child) {
+          return MaterialApp(
+            title: 'Codemicros',
+            theme: themeProvider.isDark
+                ? AppThemes.darkTheme
+                : AppThemes.lightTheme,
+            home: const HomeScreen(),
+          );
+        },
       ),
-      home: const ExpansesDetailScreen(),
     );
   }
 }
