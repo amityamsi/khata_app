@@ -4,6 +4,8 @@ import 'package:khata_app/app/theme/themes.dart';
 import 'package:khata_app/app/ui/home_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'app/ui/expanses_details.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -20,10 +22,10 @@ class MyApp extends StatelessWidget {
             (BuildContext ctx, ThemeProvider themeProvider, Widget? child) {
           return MaterialApp(
             title: 'Codemicros',
-            theme: themeProvider.isDark
-                ? AppThemes.darkTheme
-                : AppThemes.lightTheme,
-            home: const HomeScreen(),
+            // theme: themeProvider.isDark
+            //     ? AppThemes.darkTheme
+            //     : AppThemes.lightTheme,
+            home: const ExpansesDetailScreen(),
           );
         },
       ),

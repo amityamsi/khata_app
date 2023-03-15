@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  data_table_2:
+    dependency: "direct main"
+    description:
+      name: data_table_2
+      sha256: f967a525ffd787c3117d40a9dcefcb80a143f68a4d4c724b1b6d72cebe249744
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   fake_async:
     dependency: transitive
     description:
@@ -176,6 +184,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "3979f0b1c5a97422cadae52d476c21fa3e0fb671ef51de6cae1d646d8b99fe1f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
+  syncfusion_flutter_datagrid:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_datagrid
+      sha256: "1bd1adc3f69986849c15b61b76bc0494e74b1ebd3b503ea263f2414c803c38b0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
   term_glyph:
     dependency: transitive
     description:
@@ -202,4 +226,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.18.6 <3.0.0"
-  flutter: ">=1.16.0"
+  flutter: ">=3.7.0"
