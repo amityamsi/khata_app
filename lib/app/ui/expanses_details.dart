@@ -30,6 +30,8 @@ class _ExpansesDetailScreenState extends State<ExpansesDetailScreen> {
         allowPullToRefresh: true,
         source: employeeDataSource,
         columnWidthMode: ColumnWidthMode.fill,
+        headerGridLinesVisibility: GridLinesVisibility.both,
+        gridLinesVisibility: GridLinesVisibility.both,
         columns: <GridColumn>[
           GridColumn(
               columnName: 'date',
@@ -123,18 +125,24 @@ addNewTransaction({context, gender}) {
                     )
                   ],
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2100));
-                    },
-                    child: const Text("Pick a Date")),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100));
+                      },
+                      child: const Text("Pick a Date")),
+                ),
                 const TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), hintText: "Amount"),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .01,
                 ),
                 const TextField(
                   decoration: InputDecoration(
@@ -143,7 +151,8 @@ addNewTransaction({context, gender}) {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(onPressed: () {}, child: const Text("Cancel")),
+                      OutlinedButton(
+                          onPressed: () {}, child: const Text("Cancel")),
                       ElevatedButton(
                           onPressed: () {}, child: const Text("Save"))
                     ]),
