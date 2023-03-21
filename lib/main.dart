@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khata_app/app/provider/expanses_provider.dart';
 import 'package:khata_app/app/provider/theme_provider.dart';
 import 'package:khata_app/app/theme/themes.dart';
 import 'package:khata_app/app/ui/home_screen.dart';
@@ -15,12 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
-      child: Consumer(
-        builder:
-            (BuildContext ctx, ThemeProvider themeProvider, Widget? child) {
-          return MaterialApp(
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => ExpansesProvider()),
+      ChangeNotifierProvider<ThemeProvider>(
+        create: (_) => ThemeProvider(),
+        // child: Consumer(
+        builder: (BuildContext ctx, Widget? child) {
+          return const MaterialApp(
             title: 'Codemicros',
             // theme: themeProvider.isDark
             //     ? AppThemes.darkTheme
@@ -28,7 +30,26 @@ class MyApp extends StatelessWidget {
             home: const ExpansesDetailScreen(),
           );
         },
+        // ),
       ),
-    );
+    ]);
+
+    // ChangeNotifierProvider(
+    //   create: (_) => ThemeProvider(),
+    //   child: Consumer(
+    //     builder:
+    //         (BuildContext ctx, ThemeProvider themeProvider, Widget? child) {
+    //       return
+
+    //       MaterialApp(
+    //         title: 'Codemicros',
+    //         // theme: themeProvider.isDark
+    //         //     ? AppThemes.darkTheme
+    //         //     : AppThemes.lightTheme,
+    //         home: const ExpansesDetailScreen(),
+    //       );
+    //     },
+    // ),
+    // );
   }
 }

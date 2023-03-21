@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:khata_app/app/constants/colors.dart';
 import 'package:khata_app/app/provider/theme_provider.dart';
@@ -120,13 +118,13 @@ class HomeScreen extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           alignment: Alignment.center,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           title: const Text('Add a new account'),
           content: SingleChildScrollView(
             child: Column(
               children: [
-                TextField(
+                const TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), hintText: "Account Name"),
                 ),
