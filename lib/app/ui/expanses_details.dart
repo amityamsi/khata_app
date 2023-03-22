@@ -1,91 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:khata_app/app/provider/expanses_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-class ExpansesDetailScreen extends StatefulWidget {
+class ExpansesDetailScreen extends StatelessWidget {
   const ExpansesDetailScreen({super.key});
 
   @override
-  State<ExpansesDetailScreen> createState() => _ExpansesDetailScreenState();
-}
-
-class _ExpansesDetailScreenState extends State<ExpansesDetailScreen> {
-  List<Employee> employees = <Employee>[];
-  late EmployeeDataSource employeeDataSource;
-  String? gender; //no radio button will be selected on initial
-
-  @override
-  void initState() {
-    super.initState();
-    employees = getEmployeeData();
-    employeeDataSource = EmployeeDataSource(employeeData: employees);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Syncfusion Flutter DataGrid'),
-      ),
-      body: SfDataGrid(
-        allowPullToRefresh: true,
-        source: employeeDataSource,
-        columnWidthMode: ColumnWidthMode.fill,
-        headerGridLinesVisibility: GridLinesVisibility.both,
-        gridLinesVisibility: GridLinesVisibility.both,
-        columns: <GridColumn>[
-          GridColumn(
-              columnName: 'date',
-              label: Container(
-                  padding: const EdgeInsets.all(16.0),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Date',
-                  ))),
-          GridColumn(
-              columnName: 'title',
-              label: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  alignment: Alignment.center,
-                  child: const Text('Title'))),
-          GridColumn(
-              columnName: 'credit',
-              label: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Credit',
-                    overflow: TextOverflow.ellipsis,
-                  ))),
-          GridColumn(
-              columnName: 'debit',
-              label: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  alignment: Alignment.center,
-                  child: const Text('Debit'))),
-          GridColumn(
-              columnName: 'balance',
-              label: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  alignment: Alignment.center,
-                  child: const Text('Balance'))),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          addNewTransaction(context: context, gender: gender);
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
+    return Consumer<ExpansesProvider>(builder:
+        (BuildContext ctx, ExpansesProvider expansesProvider, Widget? child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Syncfusion Flutter DataGrid'),
+        ),
+        body: SfDataGrid(
+          allowPullToRefresh: true,
+          source: expansesProvider.employeeDataSource,
+          columnWidthMode: ColumnWidthMode.fill,
+          headerGridLinesVisibility: GridLinesVisibility.both,
+          gridLinesVisibility: GridLinesVisibility.both,
+          columns: <GridColumn>[
+            GridColumn(
+                columnName: 'date',
+                label: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Date',
+                    ))),
+            GridColumn(
+                columnName: 'title',
+                label: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    alignment: Alignment.center,
+                    child: const Text('Title'))),
+            GridColumn(
+                columnName: 'credit',
+                label: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Credit',
+                      overflow: TextOverflow.ellipsis,
+                    ))),
+            GridColumn(
+                columnName: 'debit',
+                label: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    alignment: Alignment.center,
+                    child: const Text('Debit'))),
+            GridColumn(
+                columnName: 'balance',
+                label: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    alignment: Alignment.center,
+                    child: const Text('Balance'))),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            addNewTransaction(
+                expansesProvider: expansesProvider,
+                context: context,
+                gender: expansesProvider.gender);
+          },
+          child: const Icon(Icons.add),
+        ),
+      );
+    });
   }
 }
 
-addNewTransaction({context, gender}) {
+addNewTransaction(
+    {context, gender, required ExpansesProvider expansesProvider}) {
   showDialog<void>(
     context: context,
     barrierDismissible: true, // user must tap button!
     builder: (BuildContext context) {
-      return StatefulBuilder(builder: (context, setState) {
+      return StatefulBuilder(builder: (ctx, setState) {
         return AlertDialog(
           alignment: Alignment.center,
           shape: const RoundedRectangleBorder(
@@ -129,13 +122,9 @@ addNewTransaction({context, gender}) {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2100));
+                        expansesProvider.changeDate(context: ctx);
                       },
-                      child: const Text("Pick a Date")),
+                      child: Text(expansesProvider.date)),
                 ),
                 const TextField(
                   decoration: InputDecoration(

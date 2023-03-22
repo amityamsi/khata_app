@@ -10,7 +10,11 @@ class SqfliteDatabaseHelper {
   static const table = 'my_table';
 
   static const columnId = '_id';
-  static const columnNotes = 'notes';
+  static const columnDate = 'Date';
+  static const columnTitle = 'Title';
+  static const columnCredit = 'Credit';
+  static const columnDebit = 'Debit';
+  static const columnBalance = 'Balance';
 
   late Database _db;
 
@@ -30,7 +34,12 @@ class SqfliteDatabaseHelper {
     await db.execute('''
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY,
-            $columnNotes TEXT NOT NULL
+            $columnDate TEXT NOT NULL,
+            $columnTitle TEXT NOT NULL,
+            $columnCredit INTEGER NOT NULL,
+            $columnDebit INTEGER NOT NULL,
+            $columnBalance INTEGER NOT NULL,
+
           )
           ''');
   }
