@@ -1,16 +1,29 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:khata_app/app/services/hive/transaction.dart';
 
 import '../ui/expanses_details.dart';
 
 class ExpansesProvider extends ChangeNotifier {
-  var date = "Pick a Date";
+  var date = DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
+  double runningBalance = 0.0;
+
+  TextEditingController amountEditingController = TextEditingController();
+  TextEditingController titleEditingController = TextEditingController();
+  bool isCredit = true;
+
+  updateIsCredit({required bool val}) {
+    isCredit = val;
+    type = val ? "credit" : "debit";
+    notifyListeners();
+  }
 
   List<Employee> employees = <Employee>[];
   late EmployeeDataSource employeeDataSource;
-  String? gender;
+  String? type;
 
   ExpansesProvider() {
     employees = getEmployeeData();
@@ -28,6 +41,15 @@ class ExpansesProvider extends ChangeNotifier {
     log(pickeDate.toString());
 
     date = dateFormat.format(pickeDate!);
+    notifyListeners();
+  }
+
+  Future<void> addTransaction(Transaction transaction) async {
+    final box = Hive.box<Transaction>('transactions');
+    box.add(transaction);
+    amountEditingController.clear();
+    titleEditingController.clear();
+    var date = DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
     notifyListeners();
   }
 }

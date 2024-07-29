@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:khata_app/app/constants/colors.dart';
 
 class CustomTileListWidget extends StatelessWidget {
@@ -36,12 +33,12 @@ class CustomTileListWidget extends StatelessWidget {
                           context: context,
                           barrierDismissible: true, // user must tap button!
                           builder: (BuildContext context) {
-                            return AlertDialog(
+                            return const AlertDialog(
                               alignment: Alignment.center,
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20.0))),
-                              title: const Text('Account Options'),
+                              title: Text('Account Options'),
                               content: SingleChildScrollView(
                                 child: Row(
                                     mainAxisAlignment:

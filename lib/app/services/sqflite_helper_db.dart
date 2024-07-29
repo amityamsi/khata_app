@@ -1,7 +1,6 @@
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:provider/provider.dart';
 
 class SqfliteDatabaseHelper {
   static const _databaseName = "MyKhata.db";

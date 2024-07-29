@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khata_app/app/constants/colors.dart';
 import 'package:khata_app/app/provider/expanses_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -38,6 +39,7 @@ class ExpansesDetailScreen extends StatelessWidget {
             GridColumn(
                 columnName: 'credit',
                 label: Container(
+                    color: Colors.green,
                     padding: const EdgeInsets.all(8.0),
                     alignment: Alignment.center,
                     child: const Text(
@@ -47,6 +49,7 @@ class ExpansesDetailScreen extends StatelessWidget {
             GridColumn(
                 columnName: 'debit',
                 label: Container(
+                    color: Colors.red,
                     padding: const EdgeInsets.all(8.0),
                     alignment: Alignment.center,
                     child: const Text('Debit'))),
@@ -63,7 +66,7 @@ class ExpansesDetailScreen extends StatelessWidget {
             addNewTransaction(
                 expansesProvider: expansesProvider,
                 context: context,
-                gender: expansesProvider.gender);
+                gender: expansesProvider.type);
           },
           child: const Icon(Icons.add),
         ),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:khata_app/app/provider/expanses_provider.dart';
 import 'package:khata_app/app/provider/theme_provider.dart';
-import 'package:khata_app/app/theme/themes.dart';
-import 'package:khata_app/app/ui/home_screen.dart';
+import 'package:khata_app/app/services/hive/transaction.dart';
+import 'package:khata_app/app/ui/transacion_table.dart';
 import 'package:provider/provider.dart';
 
-import 'app/ui/expanses_details.dart';
-
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(TransactionAdapter());
+  await Hive.openBox<Transaction>('transactions');
   runApp(const MyApp());
 }
 
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
             // theme: themeProvider.isDark
             //     ? AppThemes.darkTheme
             //     : AppThemes.lightTheme,
-            home: const ExpansesDetailScreen(),
+            home: TransactionTable(),
           );
         },
         // ),
